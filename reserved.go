@@ -145,5 +145,6 @@ var Reserved = map[string]bool{
 	"WHEN":              true,
 	"WHERE":             true,
 	"WITH":              true,
+	"WITHIN":            true,
 	"WITHOUT":           true,
 }
