@@ -5,18 +5,18 @@ import "testing"
 
 func TestEscape(t *testing.T) {
 	{
-		s := Escape("SELECT %I FROM %I WHERE %I=%L", "some stuff", "some table", "some column", "some value")
+		s, _ := Escape("SELECT %I FROM %I WHERE %I=%L", "some stuff", "some table", "some column", "some value")
 		exp := `SELECT "some stuff" FROM "some table" WHERE "some column"='some value'`
 		assert.Equal(t, exp, s)
 	}
 
 	{
-		s := Escape("COPY %s", "something")
+		s, _ := Escape("COPY %s", "something")
 		assert.Equal(t, "COPY something", s)
 	}
 
 	{
-		s := Escape("COPY something")
+		s, _ := Escape("COPY something")
 		assert.Equal(t, "COPY something", s)
 	}
 }
