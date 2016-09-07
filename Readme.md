@@ -3,12 +3,12 @@
 
  Escape Postgres queries.
 
- View the [docs](http://godoc.org/github.com/tj/go-pg-escape).
+ View the [docs](http://godoc.org/github.com/segmentio/go-pg-escape).
 
 ## Installation
 
 ```
-$ go get github.com/tj/go-pg-escape
+$ go get github.com/segmentio/go-pg-escape
 ```
 
 ## Example
