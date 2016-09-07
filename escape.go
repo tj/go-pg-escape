@@ -1,24 +1,27 @@
 package escape
 
-import "strings"
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
 
 var ident = regexp.MustCompile(`(?i)^[a-z_][a-z0-9_$]*$`)
 var params = regexp.MustCompile(`%([sIL])`)
 
 // Escape the given `query` with positional `args`.
-func Escape(query string, args ...string) string {
+func Escape(query string, args ...string) (string, error) {
 	matches := params.FindAllStringSubmatch(query, -1)
 
 	length := len(matches)
 	argc := len(args)
 
 	if argc > length {
-		panic("too many arguments for escaped query")
+		return "", fmt.Errorf("too many arguments for escaped query")
 	}
 
 	if argc < length {
-		panic("too few arguments for escaped query")
+		return "", fmt.Errorf("too few arguments for escaped query")
 	}
 
 	for i, match := range matches {
@@ -33,7 +36,7 @@ func Escape(query string, args ...string) string {
 		}
 	}
 
-	return query
+	return query, nil
 }
 
 // Literal escape the given string.
