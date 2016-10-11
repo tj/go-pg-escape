@@ -9,6 +9,16 @@ import (
 var ident = regexp.MustCompile(`(?i)^[a-z_][a-z0-9_$]*$`)
 var params = regexp.MustCompile(`%([sIL])`)
 
+// MustEscape panics on error.
+func MustEscape(query string, args ...string) string {
+	s, err := Escape(query, args...)
+	if err != nil {
+		panic(err)
+	}
+
+	return s
+}
+
 // Escape the given `query` with positional `args`.
 func Escape(query string, args ...string) (string, error) {
 	matches := params.FindAllStringSubmatch(query, -1)
@@ -17,11 +27,11 @@ func Escape(query string, args ...string) (string, error) {
 	argc := len(args)
 
 	if argc > length {
-		return "", fmt.Errorf("too many arguments for escaped query")
+		return "", fmt.Errorf("escape: too many arguments for escaped query")
 	}
 
 	if argc < length {
-		return "", fmt.Errorf("too few arguments for escaped query")
+		return "", fmt.Errorf("escape: too few arguments for escaped query")
 	}
 
 	for i, match := range matches {
