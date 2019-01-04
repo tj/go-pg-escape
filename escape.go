@@ -53,9 +53,9 @@ func Literal(s string) string {
 func Ident(s string) string {
 	if IdentNeedsQuotes(s) {
 		return QuoteIdent(s)
-	} else {
-		return s
 	}
+
+	return s
 }
 
 // IdentNeedsQuotes checks if the given identifier requires quoting
